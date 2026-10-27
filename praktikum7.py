@@ -3,11 +3,11 @@ from tkinter import messagebox
 import sqlite3
 
 
-# 1. Membuat dan menghubungkan database SQLite
+
 koneksi = sqlite3.connect("nilai_siswa.db")
 cursor = koneksi.cursor()
 
-# 2. Membuat tabel nilai_siswa
+
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS nilai_siswa (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS nilai_siswa (
 koneksi.commit()
 
 
-# 3. Fungsi untuk memprediksi fakultas
+
 def prediksi_fakultas(biologi, fisika, inggris):
     nilai_tertinggi = max(biologi, fisika, inggris)
 
@@ -48,7 +48,7 @@ def prediksi_fakultas(biologi, fisika, inggris):
         return "Bahasa"
 
 
-# 4. Fungsi untuk menyimpan nilai siswa
+
 def submit_nilai():
     nama = entry_nama.get().strip()
 
@@ -92,7 +92,7 @@ def submit_nilai():
         )
         return
 
-    # 5. Menyimpan data ke tabel SQLite
+    
     cursor.execute("""
         INSERT INTO nilai_siswa
         (nama_siswa, biologi, fisika, inggris,
@@ -102,7 +102,7 @@ def submit_nilai():
 
     koneksi.commit()
 
-    # 6. Menampilkan hasil prediksi
+    
     messagebox.showinfo(
         "Hasil Prediksi",
         f"Nama Siswa: {nama}\n"
@@ -113,14 +113,14 @@ def submit_nilai():
         "Data berhasil disimpan ke database!"
     )
 
-    # 7. Mengosongkan form setelah submit
+    
     entry_nama.delete(0, tk.END)
     entry_biologi.delete(0, tk.END)
     entry_fisika.delete(0, tk.END)
     entry_inggris.delete(0, tk.END)
 
 
-# 8. Membuat tampilan Tkinter
+
 root = tk.Tk()
 root.title("Prediksi Fakultas Siswa")
 root.geometry("400x350")
